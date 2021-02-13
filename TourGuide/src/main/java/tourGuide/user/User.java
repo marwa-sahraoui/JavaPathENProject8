@@ -15,7 +15,10 @@ public class User {
 	private String emailAddress;
 	private Date latestLocationTimestamp;
 	private List<VisitedLocation> visitedLocations = new ArrayList<>();
-	private List<UserReward> userRewards = new ArrayList<>();
+
+
+
+	private List<UserReward> userRewards = new ArrayList<>();  //recompenses
 	private UserPreferences userPreferences = new UserPreferences();
 	private List<Provider> tripDeals = new ArrayList<>();
 	public User(UUID userId, String userName, String phoneNumber, String emailAddress) {
@@ -57,7 +60,7 @@ public class User {
 		return latestLocationTimestamp;
 	}
 	
-	public void addToVisitedLocations(VisitedLocation visitedLocation) {
+	public void addToVisitedLocations(VisitedLocation visitedLocation) { //ajout nvelles visited locations
 		visitedLocations.add(visitedLocation);
 	}
 	
@@ -65,13 +68,18 @@ public class User {
 		return visitedLocations;
 	}
 	
-	public void clearVisitedLocations() {
+	public void clearVisitedLocations() {    //clear =remove/effacer
 		visitedLocations.clear();
 	}
-	
-	public void addUserReward(UserReward userReward) {
-		if(userRewards.stream().filter(r -> !r.attraction.attractionName.equals(userReward.attraction)).count() == 0) {
+	/*userReward.attraction pour faire la comparaison, on doit comparer les attractions name
+	 donc on modifie userReward.attraction?attractionName, pour ajouter un userReward il faut que les attraction names soient
+	égaux donc on enléve l'"!"   lié au testRewardServive */
+	public void  addUserReward(UserReward userReward) {
+		/*if(userRewards.stream().filter(r -> !r.attraction.attractionName.equals(userReward.attraction)).count() == 0) {
+			userRewards.add(userReward);*/
+			if(userRewards.stream().filter(r -> r.attraction.attractionName.equals(userReward.attraction.attractionName)).count() == 0) {
 			userRewards.add(userReward);
+
 		}
 	}
 	

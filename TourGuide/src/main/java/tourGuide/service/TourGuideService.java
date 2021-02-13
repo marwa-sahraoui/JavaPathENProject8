@@ -2,13 +2,7 @@ package tourGuide.service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -74,7 +68,7 @@ public class TourGuideService {
 			internalUserMap.put(user.getUserName(), user);
 		}
 	}
-	
+	///
 	public List<Provider> getTripDeals(User user) {
 		int cumulatativeRewardPoints = user.getUserRewards().stream().mapToInt(i -> i.getRewardPoints()).sum();
 		List<Provider> providers = tripPricer.getPrice(tripPricerApiKey, user.getUserId(), user.getUserPreferences().getNumberOfAdults(), 
@@ -89,18 +83,42 @@ public class TourGuideService {
 		rewardsService.calculateRewards(user);
 		return visitedLocation;
 	}
-
+	//5 attractions les plus proches par rapport au dernier emplacement de l'utilisateur **peu importe leur distance**.
 	public List<Attraction> getNearByAttractions(VisitedLocation visitedLocation) {
+//		List<Attraction> nearbyAttractions = new ArrayList<>();
+//
+//		for(Attraction attraction : gpsUtil.getAttractions()) {
+//			if(rewardsService.isWithinAttractionProximity(attraction, visitedLocation.location)) {
+//				nearbyAttractions.add(attraction);
+//			}
+//		}
+//		return nearbyAttractions;
+
+	     // en rapport avec le testTourGuideService :getNearbyAttractions()	en effet c'est inutil d'appeler la methode isWithAttractionProximity vue
+		// que la distance max prise en considération est 200, nous on cherche les 5 attractions les plus proches de localisation peu importe leur distance
+		// on va trier ces attraction selon leur distance par rapport à la localisation de l'utilisateur , on utilise le dictionnaire dont la clé :distance et
+		//la valeur :attraction  de type TreeMap pour avoir un dictionnaire trié ;
+		//puis on va ajouter les 5 premiers valeurs de map dans une list nearByAttraction puid on fait un break.
+
 		List<Attraction> nearbyAttractions = new ArrayList<>();
+		Map<Double, Attraction> dictionary = new TreeMap<>();
+
 		for(Attraction attraction : gpsUtil.getAttractions()) {
-			if(rewardsService.isWithinAttractionProximity(attraction, visitedLocation.location)) {
-				nearbyAttractions.add(attraction);
+			double distance = rewardsService.getDistance(attraction, visitedLocation.location);
+			dictionary.put(distance, attraction);
+		}
+
+		for (Map.Entry<Double, Attraction> entry : dictionary.entrySet()) {
+			nearbyAttractions.add(entry.getValue());
+			if(nearbyAttractions.size() == 5){
+				break;
 			}
 		}
-		
+
 		return nearbyAttractions;
 	}
-	
+
+
 	private void addShutDownHook() {
 		Runtime.getRuntime().addShutdownHook(new Thread() { 
 		      public void run() {

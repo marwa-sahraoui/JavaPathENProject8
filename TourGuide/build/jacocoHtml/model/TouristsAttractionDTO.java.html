@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TouristsAttractionDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TourGuide</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">TouristsAttractionDTO.java</span></div><h1>TouristsAttractionDTO.java</h1><pre class="source lang-java linenums">package model;
+
+public class TouristsAttractionDTO {
+    private String attractionName;
+    private double attractionLong;
+    private double attractionLat;
+    private double userLocationLong;
+    private double userLocationLat;
+    private double distanceBetweenLocationAndAttraction;
+    private int rewardPoint;
+
+<span class="fc" id="L12">    public TouristsAttractionDTO() {</span>
+        //
+<span class="fc" id="L14">    }</span>
+
+
+    public TouristsAttractionDTO(String attractionName, double attractionLong, double attractionLat, double userLocationLong, double userLocationLat,
+<span class="nc" id="L18">                                 double distanceBetweenLocationAndAttraction, int rewardPoint) {</span>
+<span class="nc" id="L19">        this.attractionName = attractionName;</span>
+<span class="nc" id="L20">        this.attractionLong = attractionLong;</span>
+<span class="nc" id="L21">        this.attractionLat = attractionLat;</span>
+<span class="nc" id="L22">        this.userLocationLong = userLocationLong;</span>
+<span class="nc" id="L23">        this.userLocationLat = userLocationLat;</span>
+<span class="nc" id="L24">        this.distanceBetweenLocationAndAttraction = distanceBetweenLocationAndAttraction;</span>
+<span class="nc" id="L25">        this.rewardPoint = rewardPoint;</span>
+<span class="nc" id="L26">    }</span>
+
+    public String getAttractionName() {
+<span class="fc" id="L29">        return attractionName;</span>
+    }
+
+    public void setAttractionName(String attractionName) {
+<span class="fc" id="L33">        this.attractionName = attractionName;</span>
+<span class="fc" id="L34">    }</span>
+
+    public double getAttractionLong() {
+<span class="nc" id="L37">        return attractionLong;</span>
+    }
+
+    public void setAttractionLong(double attractionLong) {
+<span class="fc" id="L41">        this.attractionLong = attractionLong;</span>
+<span class="fc" id="L42">    }</span>
+
+    public double getAttractionLat() {
+<span class="nc" id="L45">        return attractionLat;</span>
+    }
+
+    public void setAttractionLat(double attractionLat) {
+<span class="fc" id="L49">        this.attractionLat = attractionLat;</span>
+<span class="fc" id="L50">    }</span>
+
+    public double getUserLocationLong() {
+<span class="nc" id="L53">        return userLocationLong;</span>
+    }
+
+    public void setUserLocationLong(double userLocationLong) {
+<span class="fc" id="L57">        this.userLocationLong = userLocationLong;</span>
+<span class="fc" id="L58">    }</span>
+
+    public double getUserLocationLat() {
+<span class="nc" id="L61">        return userLocationLat;</span>
+    }
+
+    public void setUserLocationLat(double userLocationLat) {
+<span class="fc" id="L65">        this.userLocationLat = userLocationLat;</span>
+<span class="fc" id="L66">    }</span>
+
+    public double getDistanceBetweenLocationAndAttraction() {
+<span class="nc" id="L69">        return distanceBetweenLocationAndAttraction;</span>
+    }
+
+    public void setDistanceBetweenLocationAndAttraction(double distanceBetweenLocationAndAttraction) {
+<span class="fc" id="L73">        this.distanceBetweenLocationAndAttraction = distanceBetweenLocationAndAttraction;</span>
+<span class="fc" id="L74">    }</span>
+
+    public int getRewardPoint() {
+<span class="fc" id="L77">        return rewardPoint;</span>
+    }
+
+    public void setRewardPoint(int rewardPoint) {
+<span class="fc" id="L81">        this.rewardPoint = rewardPoint;</span>
+<span class="fc" id="L82">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -33,7 +33,7 @@ public class User {
 	}
 	
 	public String getUserName() {
-<span class="fc" id="L36">		return userName;</span>
+<span class="nc" id="L36">		return userName;</span>
 	}
 	
 	public void setPhoneNumber(String phoneNumber) {
@@ -75,33 +75,36 @@ public class User {
 	 donc on modifie userReward.attraction?attractionName, pour ajouter un userReward il faut que les attraction names soient
 	égaux donc on enléve l'&quot;!&quot;   lié au testRewardServive */
 	public void  addUserReward(UserReward userReward) {
-<span class="fc bfc" id="L78" title="All 2 branches covered.">		if(userRewards.stream().filter(r -&gt; r.attraction.attractionName.equals(userReward.attraction.attractionName)).count() == 0) {</span>
-<span class="fc" id="L79">			userRewards.add(userReward);  //</span>
+		/*if(userRewards.stream().filter(r -&gt; !r.attraction.attractionName.equals(userReward.attraction)).count() == 0) {
+			userRewards.add(userReward);*/
+<span class="nc bnc" id="L80" title="All 2 branches missed.">			if(userRewards.stream().filter(r -&gt; r.attraction.attractionName.equals(userReward.attraction.attractionName)).count() == 0) {</span>
+<span class="nc" id="L81">			userRewards.add(userReward);</span>
+
 		}
-<span class="fc" id="L81">	}</span>
+<span class="nc" id="L84">	}</span>
 	
 	public List&lt;UserReward&gt; getUserRewards() {
-<span class="fc" id="L84">		return userRewards;</span>
+<span class="fc" id="L87">		return userRewards;</span>
 	}
 	
 	public UserPreferences getUserPreferences() {
-<span class="nc" id="L88">		return userPreferences;</span>
+<span class="nc" id="L91">		return userPreferences;</span>
 	}
 	
 	public void setUserPreferences(UserPreferences userPreferences) {
-<span class="nc" id="L92">		this.userPreferences = userPreferences;</span>
-<span class="nc" id="L93">	}</span>
+<span class="nc" id="L95">		this.userPreferences = userPreferences;</span>
+<span class="nc" id="L96">	}</span>
 
 	public VisitedLocation getLastVisitedLocation() {
-<span class="fc" id="L96">		return visitedLocations.get(visitedLocations.size() - 1);</span>
+<span class="nc" id="L99">		return visitedLocations.get(visitedLocations.size() - 1);</span>
 	}
 	
 	public void setTripDeals(List&lt;Provider&gt; tripDeals) {
-<span class="nc" id="L100">		this.tripDeals = tripDeals;</span>
-<span class="nc" id="L101">	}</span>
+<span class="nc" id="L103">		this.tripDeals = tripDeals;</span>
+<span class="nc" id="L104">	}</span>
 	
 	public List&lt;Provider&gt; getTripDeals() {
-<span class="nc" id="L104">		return tripDeals;</span>
+<span class="nc" id="L107">		return tripDeals;</span>
 	}
 
 }

@@ -148,6 +148,22 @@ public class TourGuideService {
         return result;
     }
 
+    ////méthode qui permet de voir les emplacements des users: on aura l'id et la location(latitude et longitude)
+    public Map<UUID, Location> getUsersIdAndItsLocations() {
+
+
+        Map<UUID, Location> dictionary = new TreeMap<>();
+        List<User> allUsers = getAllUsers();
+
+        for(User userx : allUsers) {
+            UUID userId = userx.getLastVisitedLocation().userId;
+            Location location = userx.getLastVisitedLocation().location;
+            dictionary.put(userId, location);
+        }
+        return dictionary;
+    }
+
+
 
     private void addShutDownHook() {
         Runtime.getRuntime().addShutdownHook(new Thread() {

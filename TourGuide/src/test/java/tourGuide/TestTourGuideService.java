@@ -3,9 +3,9 @@ package tourGuide;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
+import gpsUtil.location.Location;
 import model.TouristsAttractionDTO;
 import org.junit.Test;
 
@@ -128,6 +128,44 @@ public class TestTourGuideService {
         tourGuideService.tracker.stopTracking();
 
         assertEquals(5, attractions.size());
+
+
+    }
+   /* pour tester la methode qui permet de retourner un map contenant les utilisateurs ainsi que leurs
+    locations actuelles, on crée des utilisateurs avec des locations données (càd longitude et latitude données),
+    on vérifie qu' en total qu'on a 3 Maps donc 3 usersid ayant 3 locations
+    puis on teste pour un id donnée on aura location's latitude et location's longitude donnée*/
+    @Test
+    public void getUserIdAndLocation() {
+        GpsUtil gpsUtil = new GpsUtil();
+        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
+        InternalTestHelper.setInternalUserNumber(0);
+        TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
+
+        User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
+        user.getVisitedLocations().add(new VisitedLocation(user.getUserId(), new Location(5.00, 6), new Date()));
+        User user2 = new User(UUID.randomUUID(), "jon2", "000", "jon@tourGuide2.com");
+        user2.getVisitedLocations().add(new VisitedLocation(user2.getUserId(), new Location(15, 20), new Date()));
+        User user3 = new User(UUID.randomUUID(), "jon3", "000", "jon@tourGuide3.com");
+        user3.getVisitedLocations().add(new VisitedLocation(user3.getUserId(), new Location(10, 7), new Date()));
+
+        tourGuideService.addUser(user);
+        tourGuideService.addUser(user2);
+        tourGuideService.addUser(user3);
+
+        Map<UUID, Location> dictionary   =  tourGuideService.getUsersIdAndItsLocations();
+
+        assertEquals(3,dictionary.size());
+
+        assertEquals(6, dictionary.get(user.getUserId()).longitude, 0);
+        assertEquals(5, dictionary.get(user.getUserId()).latitude, 0);
+
+        assertEquals(20, dictionary.get(user2.getUserId()).longitude, 0);
+        assertEquals(15, dictionary.get(user2.getUserId()).latitude, 0);
+
+        assertEquals(7, dictionary.get(user3.getUserId()).longitude, 0);
+        assertEquals(10, dictionary.get(user3.getUserId()).latitude, 0);
+
     }
 
     //???????
@@ -145,6 +183,8 @@ public class TestTourGuideService {
 
         assertEquals(10, providers.size());
     }
+
+
 
 
 }

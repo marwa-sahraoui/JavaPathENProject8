@@ -1,8 +1,5 @@
 package tourGuide;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.*;
 
 import gpsUtil.location.Location;
@@ -17,7 +14,11 @@ import tourGuide.helper.InternalTestHelper;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
+import tourGuide.user.UserPreferences;
+import tourGuide.user.UserReward;
 import tripPricer.Provider;
+
+import static org.junit.Assert.*;
 
 public class TestTourGuideService {
 
@@ -168,23 +169,78 @@ public class TestTourGuideService {
 
     }
 
-    //???????
-    public void getTripDeals() {
+    /*Test en rapport avec tripPricer pour vérifier qu'il tient en compte le nombre d 'enfants ainsi que la durée de séjour
+    On vérife que pour deux clients ayant la même durée de séjour mais pas le même nombre d'enfants
+    n'auront pas le même prix pour la même offre*/
+      @Test
+    public void getTripDealsRelatedOnNumberOfChildren() {
         GpsUtil gpsUtil = new GpsUtil();
         RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
         InternalTestHelper.setInternalUserNumber(0);
         TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
 
-        User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
-
-        List<Provider> providers = tourGuideService.getTripDeals(user);
+        User jon= new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
+        jon.getUserPreferences().setNumberOfAdults(1);
+        jon.getUserPreferences().setNumberOfChildren(5);
+        jon.getUserPreferences().setTripDuration(2);
+        List<Provider> providersJon = tourGuideService.getTripDeals(jon);
 
         tourGuideService.tracker.stopTracking();
 
-        assertEquals(10, providers.size());
+        assertEquals(5, providersJon.size());
+
+        User james = new User(UUID.randomUUID(), "james", "999", "james@tourGuide.com");
+        james.getUserPreferences().setNumberOfChildren(0);
+        james.getUserPreferences().setNumberOfAdults(1);
+        jon.getUserPreferences().setTripDuration(2);
+        List<Provider> providersJames = tourGuideService.getTripDeals(james);
+
+        assertEquals(5, providersJames.size());
+
+          for(Provider providerJon : providersJon){
+              for(Provider providerJames: providersJames){
+                  if(providerJames.name.equals(providerJon.name)){
+                      assertNotEquals(providerJames.price, providerJon.price, 0);
+                  }
+              }
+          }
+
+          tourGuideService.tracker.stopTracking();
+      }
+    /*On vérifie que pour deux clients n'ayant pas la même durée de séjour mais ayant même nombre d'enfants
+   n'auront pas le même prix pour la même offre*/
+    @Test
+    public void getTripDealsRelatedOnTripDuration() {
+        GpsUtil gpsUtil = new GpsUtil();
+        RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
+        InternalTestHelper.setInternalUserNumber(0);
+        TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
+
+        User jon= new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
+        jon.getUserPreferences().setTripDuration(1);
+        List<Provider> providersJon = tourGuideService.getTripDeals(jon);
+
+        tourGuideService.tracker.stopTracking();
+
+        assertEquals(5, providersJon.size());
+
+        User james = new User(UUID.randomUUID(), "james", "999", "james@tourGuide.com");
+        james.getUserPreferences().setTripDuration(10);
+
+        List<Provider> providersJames = tourGuideService.getTripDeals(james);
+
+        assertEquals(5, providersJames.size());
+
+        for(Provider providerJon : providersJon){
+            for(Provider providerJames: providersJames){
+                if(providerJames.name.equals(providerJon.name)){
+                    assertNotEquals(providerJames.price, providerJon.price, 0);
+                }
+            }
+        }
+
+        tourGuideService.tracker.stopTracking();
     }
-
-
 
 
 }

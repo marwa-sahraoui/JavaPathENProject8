@@ -103,7 +103,7 @@ public class TourGuideService {
         // en rapport avec le testTourGuideService :getNearbyAttractions()	en effet c'est inutil d'appeler la methode isWithAttractionProximity vue
         // que la distance max prise en considération est 200, nous on cherche les 5 attractions les plus proches de localisation peu importe leur distance
         // on va trier ces attraction selon leur distance par rapport à la localisation de l'utilisateur , on utilise le dictionnaire dont la clé :distance et
-        //la valeur :attraction  de type TreeMap pour avoir un dictionnaire trié ;
+        //la valeur :attraction  de type TreeMap pour avoir un dictionnaire trié
         //puis on va ajouter les 5 premiers valeurs de map dans une list nearByAttraction puid on fait un break.
 
         List<Attraction> nearbyAttractions = new ArrayList<>();
@@ -149,8 +149,8 @@ public class TourGuideService {
     }
 
     ////méthode qui permet de voir les emplacements des users: on aura l'id et la location(latitude et longitude)
+    //on crée un map ayant id comme clé et la location comme valeur. On va louper tous les users pour extraire les id et les location
     public Map<UUID, Location> getUsersIdAndItsLocations() {
-
 
         Map<UUID, Location> dictionary = new TreeMap<>();
         List<User> allUsers = getAllUsers();

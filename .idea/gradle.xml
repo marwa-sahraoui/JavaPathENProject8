@@ -6,8 +6,9 @@
       <GradleProjectSettings>
         <option name="delegatedBuild" value="true" />
         <option name="testRunner" value="GRADLE" />
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/TourGuide" />
+        <option name="gradleHome" value="$USER_HOME$/.sdkman/candidates/gradle/current" />
         <option name="gradleJvm" value="1.8" />
         <option name="modules">
           <set>

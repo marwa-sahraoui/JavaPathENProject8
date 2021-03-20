@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import gpsUtil.location.VisitedLocation;
-import tripPricer.Provider;
+import tourGuide.model.ProviderDTO;
+import tourGuide.model.VisitedLocationDTO;
 
 public class User {
 	private final UUID userId;
@@ -14,11 +14,11 @@ public class User {
 	private String phoneNumber;
 	private String emailAddress;
 	private Date latestLocationTimestamp;
-	private List<VisitedLocation> visitedLocations = new ArrayList<>();
+	private List<VisitedLocationDTO> visitedLocations = new ArrayList<>();
 
 	private List<UserReward> userRewards = new ArrayList<>();  //recompenses
 	private UserPreferences userPreferences = new UserPreferences();
-	private List<Provider> tripDeals = new ArrayList<>();
+	private List<ProviderDTO> tripDeals = new ArrayList<>();
 
 
 	public User(UUID userId, String userName, String phoneNumber, String emailAddress) {
@@ -60,11 +60,11 @@ public class User {
 		return latestLocationTimestamp;
 	}
 	
-	public void addToVisitedLocations(VisitedLocation visitedLocation) { //ajout nvelles visited locations
+	public void addToVisitedLocations(VisitedLocationDTO visitedLocation) { //ajout nvelles visited locations
 		visitedLocations.add(visitedLocation);
 	}
 	
-	public List<VisitedLocation> getVisitedLocations() {
+	public List<VisitedLocationDTO> getVisitedLocations() {
 		return visitedLocations;
 	}
 	
@@ -95,15 +95,15 @@ public class User {
 		this.userPreferences = userPreferences;
 	}
 
-	public VisitedLocation getLastVisitedLocation() {
+	public VisitedLocationDTO getLastVisitedLocation() {
 		return visitedLocations.get(visitedLocations.size() - 1);
 	}
 	
-	public void setTripDeals(List<Provider> tripDeals) {
+	public void setTripDeals(List<ProviderDTO> tripDeals) {
 		this.tripDeals = tripDeals;
 	}
 	
-	public List<Provider> getTripDeals() {
+	public List<ProviderDTO> getTripDeals() {
 		return tripDeals;
 	}
 

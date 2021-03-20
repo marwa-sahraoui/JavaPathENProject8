@@ -1,4 +1,4 @@
-package model;
+package tourGuide.model;
 
 public class TouristsAttractionDTO {
     private String attractionName;

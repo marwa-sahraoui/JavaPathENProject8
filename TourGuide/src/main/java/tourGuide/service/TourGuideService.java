@@ -148,15 +148,15 @@ public class TourGuideService {
 
     ////méthode qui permet de voir les emplacements des users: on aura l'id et la location(latitude et longitude)
     //on crée un map ayant id comme clé et la location comme valeur. On va louper tous les users pour extraire les id et les location
-    public Map<UUID, LocationDTO> getUsersIdAndItsLocations() {
+    public Map<String, LocationDTO> getUsersIdAndItsLocations() {
 
-        Map<UUID, LocationDTO> dictionary = new TreeMap<>();
+        Map<String, LocationDTO> dictionary = new TreeMap<>();
         List<User> allUsers = getAllUsers();
 
         for (User userx : allUsers) {
             UUID userId = userx.getLastVisitedLocation().userId;
             LocationDTO location = userx.getLastVisitedLocation().location;
-            dictionary.put(userId, location);
+            dictionary.put(userId.toString(), location);
         }
         return dictionary;
     }

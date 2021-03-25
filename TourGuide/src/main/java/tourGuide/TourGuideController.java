@@ -78,7 +78,7 @@ public class TourGuideController {
         //        ...
         //     }
 
-        Map<UUID, LocationDTO> dictionary = tourGuideService.getUsersIdAndItsLocations();
+        Map<String, LocationDTO> dictionary = tourGuideService.getUsersIdAndItsLocations();
         return JsonStream.serialize(dictionary);
     }
 
